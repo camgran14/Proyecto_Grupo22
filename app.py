@@ -14,8 +14,9 @@ st.set_page_config(layout="wide")
 
 
 ########################## SIDEBAR ##########################
-
+st.sidebar.image("figs/dsa_banner_dashboard.png")
 st.sidebar.title("Dashboard Proyecto  Team22")
+
 st.sidebar.markdown(
     """
 ## Integrantes:
@@ -27,7 +28,9 @@ st.sidebar.markdown(
 )
 
 ########################## TABS ##########################
-tab_a, tab_b = st.tabs(["Modelo ML", "Exploración de Datos"])
+tab_a, tab_b, tab_c = st.tabs(
+    ["Predicción Modelo ML", "Exploración de Datos", "Contexto de negocio"]
+)
 
 
 ########################## COLS TAB A ##########################
@@ -143,33 +146,6 @@ def load_data():
     # Imputar los valores faltantes en el DataFrame
     data_imputado = pd.DataFrame(imp.transform(data_sc), columns=data_sc.columns)
     # Mapear las respuestas a los valores numéricos
-    mapeo_respuestas = {"Nunca": 1, "A veces": 2, "Constantemente": 3, "Siempre": 4}
-
-    # Variables
-    variables_p = [
-        "p2",  # Creatividad e innovación
-        "p5",
-        "p6",
-        "p7",  # Resolucion de problemas
-        "p9",
-        "p12",  # Pensamiento critico
-        "p15",  # Trabajo colaborativo
-        "p17",
-        "p18",
-        "p20",
-    ]  # Comunicación
-
-    # Aplicar el mapeo a las columnas correspondientes
-    for variable in variables_p:
-        data_imputado[variable] = data_imputado[variable].replace(mapeo_respuestas)
-    # Variables que deben invertirse
-    variables_invertir = ["p2", "p7", "p18", "p20"]
-
-    # Invertir las respuestas en las columnas seleccionadas
-    for variable in variables_invertir:
-        data_imputado[variable] = (
-            5 - data_imputado[variable]
-        )  # esto "invierte" los valores
 
     data_imputado = data_imputado.rename(columns={"Year": "Año"})
     data_imputado["Año"] = data_imputado["Año"].astype(int)
@@ -254,8 +230,8 @@ def filter_dataframe(df: pd.DataFrame, tab=tab_b) -> pd.DataFrame:
                 )
                 if len(user_date_input) == 2:
                     user_date_input = tuple(map(pd.to_datetime, user_date_input))
-                    tabart_date, end_date = user_date_input
-                    df = df.loc[df[column].between(tabart_date, end_date)]
+                    start_date, end_date = user_date_input
+                    df = df.loc[df[column].between(start_date, end_date)]
             else:
                 user_text_input = right.text_input(
                     f"Substring or regex de {column}",
@@ -266,36 +242,15 @@ def filter_dataframe(df: pd.DataFrame, tab=tab_b) -> pd.DataFrame:
     return df
 
 
-df = filter_dataframe(
-    data[
-        [
-            "ID",
-            "Año",
-            "Mes",
-            "solucion",
-            "regional",
-            "departamento",
-            "ubicacioninstitucion",
-            "cargo",
-            "edades",
-            "formacion",
-            "sexoinscrito",
-            "Marca temporal",
-            "formulario",
-        ]
-    ]
-)
+df = filter_dataframe(data)
 ########################## MOSTRAR DATOS ##########################
 
 tab_b.write(df)
 
-########################## DISEÑO ##########################
-
-col_1, col_2 = tab_b.columns(2)
 
 ########################## HISTOGRAMA COLUMNA IZQUIERDA TAB B ##########################
 
-hist_col = col_1.selectbox(
+hist_col = tab_b.selectbox(
     label="Elegir columna Histograma",
     options=[
         "Año",
@@ -322,5 +277,133 @@ def make_data_hist(column, data=df):
     )
 
 
-col_1.markdown(f"## Histograma de frecuencia variable **{hist_col}**")
-col_1.bar_chart(data=make_data_hist(hist_col), x=hist_col, y="Conteo")
+tab_b.markdown(f"## Histograma de frecuencia variable **{hist_col}**")
+tab_b.bar_chart(data=make_data_hist(hist_col), x=hist_col, y="Conteo", color="#19b1c7")
+
+
+########################## PREGUNTAS ##########################
+
+
+preguntas = [
+    "Reconoce una amplia gama de técnicas para generar ideas",
+    "Le es difícil construir, mejorar, analizar o evaluar sus propias ideas para mejorar su creatividad",
+    "Es abierto y sensible a perspectivas nuevas y diversas; incorpora ideas y realiza retroalimentación grupal.",
+    "Cuando falla, intenta olvidar lo sucedido y sigue adelante con lo que estaba trabajando",
+    "Comprende los sistemas y estrategias para abordar  problemas desconocidos",
+    "Utiliza varios tipos de razonamiento  (inductivo, deductivo, lógico, hipotético, transductivo, lingüístico,  etc.) de manera apropiada a cada situación",
+    "Saca conclusiones que no están basadas en la interpretación ni el análisis de información.",
+    "Cuando intenta identificar formas de resolver problemas se basa en lo conocido, evitando tomar riesgos.",
+    "Aborda situaciones haciendo razonamientos desde distintas perspectivas y aproximaciones.",
+    "Analiza y evalúa los diferentes componentes de una situación y el impacto que tienen en los resultados globales.",
+    "Confía plenamente en la información que consulta y la aplica sin necesidad de verificarla.",
+    "Hace preguntas significativas que evidencian varios puntos de vista y conduzcan a mejores soluciones",
+    "Demuestra capacidad para trabajar respetuosamente con diversos equipos y valora las contribuciones individuales realizadas por cada miembro del equipo.",
+    "Cuando trabaja en equipo usted se mantiene firme con sus ideas, defendiéndolas para cumplir sus objetivos.",
+    "Respeta las diferencias culturales y trabaja efectivamente con personas de diversos orígenes sociales y culturales.",
+    "Las personas externas difícilmente aportan a la innovación y calidad de un trabajo.",
+    "Es consciente de varios tipos de interacción verbal (conversaciones, entrevistas, debates, etc.) y las principales características de diferentes estilos y registros en lenguaje hablado.",
+    "En contextos complejos, sus comunicaciones no logran los objetivos y a veces son malinterpretadas.",
+    "Cuando entrega un mensaje, hablado o escrito, cuenta con los suficientes argumentos para convencer a cualquier público",
+    "Le cuesta trabajo dialogar de manera constructiva con personas que piensan muy diferente a usted",
+]
+
+preguntas_dict = {index + 1: value for index, value in enumerate(preguntas)}
+
+
+preguntas_options = [f"p{i}: {preguntas_dict[i]}" for i in range(1, 21)]
+
+preguntas_user = tab_b.multiselect(
+    "Elige la(s) pregunta(s) de interés:",
+    options=preguntas_options,
+    placeholder="Elija al menos una opción",
+    default=[
+        preguntas_options[6],
+        preguntas_options[11],
+        preguntas_options[4],
+        preguntas_options[14],
+        preguntas_options[8],
+        preguntas_options[1],
+        preguntas_options[17],
+        preguntas_options[19],
+        preguntas_options[16],
+        preguntas_options[5],
+    ],
+)
+########################## CICLO PARA PRINT DE OPCIONES ##########################
+
+col_1, col_2 = tab_b.columns(2)
+for i, pregunta_user in enumerate(preguntas_user):
+    if (
+        1 + i
+    ) % 2 == 0:  # para decidir si poner en columna 1 o 2 según si es par o impar el index
+        col_for = col_2
+    else:
+        col_for = col_1
+
+    col_for.markdown(f"#### {pregunta_user}")
+
+    temp = pd.DataFrame(df[pregunta_user.split(":")[0]].copy())
+
+    col_for.bar_chart(
+        data=make_data_hist(
+            pregunta_user.split(":")[0],
+        ),
+        x=pregunta_user.split(":")[0],
+        y="Conteo",
+        color=["#19b1c7"],
+    )
+
+######################################################################
+
+########################## TAB C: CONTENIDO ##########################
+
+######################################################################
+
+
+tab_c.markdown(
+    """
+## Descripción de la información a usar:
+
+En este proyecto, se recopilan datos anonimizados del instrumento de perfilación de competencias del siglo
+XXI, suministrados por docentes y agentes educativos de instituciones educativas y centros de desarrollo
+infantil en Colombia.
+La base de datos consta de un total de 5270 registros de docentes, cada uno de los cuales incluye
+información socio-demográfica, como género, grupo de edad, nivel educativo, posición laboral, región
+geográfica, departamento, ubicación de la institución, fecha de cumplimentación del cuestionario y las
+respuestas relacionadas con cada pregunta del instrumento. Además, se dispone de un archivo que contiene
+la codificación de las preguntas, la competencia correspondiente y si la pregunta se encuentra invertida.
+Todos los datos se encuentran en formato xlsx debido a que las respuestas se recopilan a través de
+formularios en Google Forms. Este formato facilita la recopilación y el procesamiento de datos. Asegura la
+accesibilidad y el intercambio de datos a largo plazo, y permite su respaldo y almacenamiento eficiente. Los
+datos son propios del proyecto
+
+## ¿Cómo se obtendrá la información?
+
+Los datos son suministrados en formato .xlsx por la fundación Future Education (se mantiene confidencial
+el nombre real de la empresa) se recolecta a través de formularios en línea creados utilizando la plataforma
+Google Forms. Esta metodología proporciona un proceso estructurado y estandarizado para recopilar
+respuestas de los docentes y agentes educativos.
+La base de datos completa viene anonimizada para proteger la privacidad de los docentes y se podrán
+realizar actualizaciones a solicitud a medida que se registren nuevas respuestas en el formulario.
+La base de datos de dominios también es suministrada en formato .xlsx y permanece invariable a menos que
+exista algún cambio en la metodología que será alertado por la empresa.
+
+## Copyright, Intellectual Property Rights... ¿cómo se manejarán?
+
+La información generada por este equipo de trabajo tiene exclusivamente fines académicos y será
+compartida únicamente con los docentes y tutores del curso "Despliegue de Soluciones Analíticas".
+Cualquier uso o divulgación adicional de esta información está estrictamente prohibido sin el
+consentimiento expreso de Jesús Alberto Parada Pérez quien funge como co-owner y es el propietario de los
+datos. Esta medida garantiza el respeto y la protección de los derechos de autor y la propiedad intelectual,
+así como la preservación de la confidencialidad de la información.
+Se tiene planeado la publicación de un repositorio público en la plataforma Github con el objetivo de
+presentar los resultados y conclusiones del proyecto.
+
+## ¿Que puede hacer este tablero?
+
+1. Filtrar y explorar la información socio-demográfica, para ver relaciones de información en ese alcance
+1. Filtrar y explorar información solo de respuestas, para observar patrones.
+1. Interactuar con una API de ML asociada a un modelo dado.
+
+"""
+)
