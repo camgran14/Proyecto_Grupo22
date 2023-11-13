@@ -97,7 +97,6 @@ for max_depth in max_depths:
 # registre el experimento
 experiment_lasso = mlflow.set_experiment("Linear_Regression_Lasso_Experiments")
 # Experimento para LASSO
-experiment_lasso = 
 with mlflow.start_run(experiment_id=experiment_lasso.experiment_id):
     n_alphas = 200
     alphasCalibrar = np.logspace(-10, 2, n_alphas)
