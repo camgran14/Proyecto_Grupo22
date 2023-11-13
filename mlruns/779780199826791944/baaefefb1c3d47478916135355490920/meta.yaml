@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/779780199826791944/baaefefb1c3d47478916135355490920/artifacts
+end_time: 1699842129795
+entry_point_name: ''
+experiment_id: '779780199826791944'
+lifecycle_stage: active
+run_id: baaefefb1c3d47478916135355490920
+run_name: random-forest-model-num_trees200-maxdepth5-ssplit5-sleaf2
+run_uuid: baaefefb1c3d47478916135355490920
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1699842064798
+status: 4
+tags: []
+user_id: camgr
