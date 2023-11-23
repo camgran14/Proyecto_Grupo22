@@ -106,6 +106,7 @@ _, button_div, _ = tab_a.columns([1, 5, 1])
 
 predecir = button_div.button("Predecir", use_container_width=True)
 
+
 def hacer_prediccion(p7, p12, p5, p15, p9, p2, p17, p18, p20, p6):
     """
     Realiza una predicción utilizando una API local.
@@ -131,27 +132,33 @@ def hacer_prediccion(p7, p12, p5, p15, p9, p2, p17, p18, p20, p6):
     """
 
     # Construir el cuerpo de la solicitud en formato JSON
-    request_data = str([
-        {'p7': p7,
-         'p12': p12,
-         'p5': p5,
-         'p15': p15,
-         'p9': p9,
-         'p2': p2,
-         'p17': p17,
-         'p18': p18,
-         'p20': p20,
-         'p6': p6}
-    ]).replace("'", '"')
+    request_data = str(
+        [
+            {
+                "p7": p7,
+                "p12": p12,
+                "p5": p5,
+                "p15": p15,
+                "p9": p9,
+                "p2": p2,
+                "p17": p17,
+                "p18": p18,
+                "p20": p20,
+                "p6": p6,
+            }
+        ]
+    ).replace("'", '"')
 
     # URL de la API local
-    url_api = 'http://localhost:8000/predecir'
+    url_api = "http://localhost:8000/predecir"
 
     # Enviar la solicitud a la API y leer la respuesta en formato JSON
     response = requests.post(url=url_api, data=request_data)
     result_df = pd.read_json(StringIO(response.text))
 
     return result_df
+
+
 if predecir:
     tab_a.divider()
     prediccion = hacer_prediccion(p7, p12, p5, p15, p9, p2, p17, p18, p20, p6)
