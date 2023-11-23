@@ -12,7 +12,11 @@ app = FastAPI(
 # Definir un endpoint para el modelo de predicción
 
 
-@app.post("/predecir", response_model=List[SalidaModelo], tags=["API Predicción DSA - Grupo 22"])
+@app.post(
+    "/predecir",
+    response_model=List[SalidaModelo],
+    tags=["API Predicción DSA - Grupo 22"],
+)
 async def predecir_score(entradas: List[EntradaModelo]):
     """
     Endpoint de la API encargado de predecir la probabilidad de dejar la organización.
