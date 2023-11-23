@@ -8,7 +8,8 @@ from pandas.api.types import (
     is_numeric_dtype,
     is_object_dtype,
 )
-
+import requests
+from io import StringIO
 
 st.set_page_config(layout="wide")
 
@@ -104,16 +105,61 @@ tab_a.divider()
 _, button_div, _ = tab_a.columns([1, 5, 1])
 
 predecir = button_div.button("Predecir", use_container_width=True)
+
+def hacer_prediccion(p7, p12, p5, p15, p9, p2, p17, p18, p20, p6):
+    """
+    Realiza una predicción utilizando una API local.
+
+    Parameters:
+    - p7 (str): Valor para la variable p7. Debe ser uno de ["Nunca", "A veces", "Constantemente", "Siempre"].
+    - p12 (str): Valor para la variable p12. Debe ser uno de ["Nunca", "A veces", "Constantemente", "Siempre"].
+    - p5 (str): Valor para la variable p5. Debe ser uno de ["Nunca", "A veces", "Constantemente", "Siempre"].
+    - p15 (str): Valor para la variable p15. Debe ser uno de ["Nunca", "A veces", "Constantemente", "Siempre"].
+    - p9 (str): Valor para la variable p9. Debe ser uno de ["Nunca", "A veces", "Constantemente", "Siempre"].
+    - p2 (str): Valor para la variable p2. Debe ser uno de ["Nunca", "A veces", "Constantemente", "Siempre"].
+    - p17 (str): Valor para la variable p17. Debe ser uno de ["Nunca", "A veces", "Constantemente", "Siempre"].
+    - p18 (str): Valor para la variable p18. Debe ser uno de ["Nunca", "A veces", "Constantemente", "Siempre"].
+    - p20 (str): Valor para la variable p20. Debe ser uno de ["Nunca", "A veces", "Constantemente", "Siempre"].
+    - p6 (str): Valor para la variable p6. Debe ser uno de ["Nunca", "A veces", "Constantemente", "Siempre"].
+
+    Returns:
+    pandas.DataFrame: Un DataFrame con los resultados de la predicción.
+
+    Example:
+    >>> hacer_prediccion("Nunca", "A veces", "Constantemente", "Siempre", "A veces", "Nunca", "Siempre", "Constantemente", "A veces", "Constantemente")
+    # Resultado DataFrame con la predicción
+    """
+
+    # Construir el cuerpo de la solicitud en formato JSON
+    request_data = str([
+        {'p7': p7,
+         'p12': p12,
+         'p5': p5,
+         'p15': p15,
+         'p9': p9,
+         'p2': p2,
+         'p17': p17,
+         'p18': p18,
+         'p20': p20,
+         'p6': p6}
+    ]).replace("'", '"')
+
+    # URL de la API local
+    url_api = 'http://localhost:8000/predecir'
+
+    # Enviar la solicitud a la API y leer la respuesta en formato JSON
+    response = requests.post(url=url_api, data=request_data)
+    result_df = pd.read_json(StringIO(response.text))
+
+    return result_df
 if predecir:
-    # TODO: Interacción con API y presentación de resultados modelo ML
     tab_a.divider()
+    prediccion = hacer_prediccion(p7, p12, p5, p15, p9, p2, p17, p18, p20, p6)
     tab_a.markdown(
         "De acuerdo a sus respuestas, el nivel de desempeño general fue **ALTO** "
     )
-    tab_a.markdown(
-        "De acuerdo a su desempeño general, el siguiente contenido puede ser de interés cómo oportunidad de mejora:"
-    )
-    tab_a.markdown("[PLACEHOLDER]")
+
+    tab_a.markdown(f"El score obtenido fue : {prediccion['score'][0]}")
 
 ######################################################################
 
