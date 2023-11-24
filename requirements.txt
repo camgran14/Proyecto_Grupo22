@@ -12,6 +12,6 @@ pingouin==0.5.3
 plotly==5.18.0
 ppscore==1.3.0
 seaborn==0.13.0
-streamlit==1.28.1
+streamlit
 uvicorn==0.24.0.post1
 python-decouple==3.8
