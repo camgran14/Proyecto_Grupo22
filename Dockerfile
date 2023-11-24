@@ -13,8 +13,8 @@ WORKDIR /app
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-
 USER api-user
+
 # Puerto a exponer para la api 
 EXPOSE 8001
 
