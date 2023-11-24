@@ -14,7 +14,6 @@ from decouple import config
 
 st.set_page_config(layout="wide")
 
-
 ########################## SIDEBAR ##########################
 st.sidebar.image("figs/dsa_banner_dashboard.png")
 st.sidebar.title("Dashboard Proyecto  Team22")
