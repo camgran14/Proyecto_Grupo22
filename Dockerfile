@@ -19,4 +19,4 @@ USER api-user
 EXPOSE 8001
 
 # Comandos a ejecutar al correr el contenedor 
-CMD ["uvicorn", "api:app", "--port", "8001", "--reload", "&"]
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8001", "--reload"]
