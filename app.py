@@ -18,6 +18,7 @@ st.set_page_config(layout="wide")
 st.sidebar.image("figs/dsa_banner_dashboard.png")
 st.sidebar.title("Dashboard Proyecto  Team22")
 
+
 st.sidebar.markdown(
     """
 ## Integrantes:
