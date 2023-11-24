@@ -10,6 +10,7 @@ from pandas.api.types import (
 )
 import requests
 from io import StringIO
+from decouple import config
 
 st.set_page_config(layout="wide")
 
@@ -150,7 +151,7 @@ def hacer_prediccion(p7, p12, p5, p15, p9, p2, p17, p18, p20, p6):
     ).replace("'", '"')
 
     # URL de la API local
-    url_api = "http://localhost:8000/predecir"
+    url_api = config('API_URL')
 
     # Enviar la solicitud a la API y leer la respuesta en formato JSON
     response = requests.post(url=url_api, data=request_data)
