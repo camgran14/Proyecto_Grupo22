@@ -1,16 +1,17 @@
-import streamlit as st
-import pandas as pd
+from io import StringIO
+
 import numpy as np
-from sklearn.impute import SimpleImputer
+import pandas as pd
+import requests
+import streamlit as st
+from decouple import config
 from pandas.api.types import (
     is_categorical_dtype,
     is_datetime64_any_dtype,
     is_numeric_dtype,
     is_object_dtype,
 )
-import requests
-from io import StringIO
-from decouple import config
+from sklearn.impute import SimpleImputer
 
 st.set_page_config(layout="wide")
 
@@ -168,7 +169,6 @@ if predecir:
     tab_a.markdown(
         f"De acuerdo a sus respuestas, el nivel de desempeño general fue **{'ALTO' if prediccion['score'][0]>2 else 'Medio' if prediccion['score'][0]>-2 else 'Bajo'}**"
     )
-
 
 ######################################################################
 
