@@ -37,6 +37,14 @@ tab_a, tab_b, tab_c = st.tabs(
 
 
 ########################## COLS TAB A ##########################
+tab_a.markdown(
+    """
+## Predicción Nivel de desempeño:
+
+Para cada una de las preguntas, elija la respuesta que considere adecuada.
+Luego, oprima el botón "Predecir" para obtener el resultado.
+"""
+)
 
 col_a, col_b = tab_a.columns(2)
 
