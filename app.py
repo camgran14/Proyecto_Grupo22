@@ -58,7 +58,7 @@ def create_question(column, question_text):
     )
 
 
-col_a.markdow(
+col_a.markdown(
     """
 ## Predicción Nivel de desempeño:
 
