@@ -166,7 +166,7 @@ if predecir:
     prediccion = hacer_prediccion(p7, p12, p5, p15, p9, p2, p17, p18, p20, p6)
 
     tab_a.markdown(
-        f"De acuerdo a sus respuestas, el nivel de desempeño general fue **{'ALTO' if prediccion['score'][0]>2 else 'Medio' if prediccion['score'][0]>-2 else 'Bajo'}** "
+        f"De acuerdo a sus respuestas, el nivel de desempeño general fue **{'ALTO' if prediccion['score'][0]>2 else 'Medio' if prediccion['score'][0]>-2 else 'Bajo'}**"
     )
 
 
