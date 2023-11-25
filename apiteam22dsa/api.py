@@ -35,7 +35,6 @@ async def predecir_score(entradas: List[EntradaModelo]):
     for entrada in entradas:
         # Crear una instancia del modelo con las entradas actuales
         modelo = ModeloAPI(*entrada)
-
         # Realizar la predicción usando el modelo y agregarla a la lista de respuestas
         respuesta.append(modelo.predecir()[0])
 

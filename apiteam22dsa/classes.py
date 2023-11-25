@@ -81,6 +81,8 @@ class EntradaModelo(BM):
     }
 
 
+
+
 class SalidaModelo(BM):
     """
     Clase que controla que la salida si tenga sentido
