@@ -32,7 +32,7 @@ st.sidebar.markdown(
 )
 
 ########################## TABS ##########################
-tab_a, tab_b, tab_c = st.tabs(["Predicción Modelo ML", "Exploración de Datos", "FAQ"])
+tab_a, tab_b, tab_c = st.tabs(["Predicción Modelo ML", "Exploración de Datos", "FAQs"])
 
 
 ########################## COLS TAB A ##########################
