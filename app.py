@@ -152,7 +152,7 @@ def hacer_prediccion(p7, p12, p5, p15, p9, p2, p17, p18, p20, p6):
     ).replace("'", '"')
 
     # URL de la API local
-    url_api = config('API_URL')
+    url_api = config("API_URL")
 
     # Enviar la solicitud a la API y leer la respuesta en formato JSON
     response = requests.post(url=url_api, data=request_data)
@@ -164,11 +164,12 @@ def hacer_prediccion(p7, p12, p5, p15, p9, p2, p17, p18, p20, p6):
 if predecir:
     tab_a.divider()
     prediccion = hacer_prediccion(p7, p12, p5, p15, p9, p2, p17, p18, p20, p6)
+
     tab_a.markdown(
-        "De acuerdo a sus respuestas, el nivel de desempeño general fue **ALTO** "
+        f"De acuerdo a sus respuestas, el nivel de desempeño general fue **{'ALTO' if prediccion['score'][0]>2 else 'Medio' if prediccion['score'][0]>-2 else 'Bajo'}** "
     )
 
-    tab_a.markdown(f"El score obtenido fue : {prediccion['score'][0]}")
+
 
 ######################################################################
 
