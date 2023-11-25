@@ -31,8 +31,6 @@ def test_read_data():
     assert data is not None
 
 
-import joblib
-
 
 def test_instanciar():
     test = ModeloAPI(
@@ -68,7 +66,7 @@ def test_cargar_modelo():
 
 
 def test_instanciar_input():
-    test = EntradaModelo(
+    EntradaModelo(
         p7="Nunca",
         p12="Siempre",
         p5="Nunca",
@@ -80,6 +78,7 @@ def test_instanciar_input():
         p20="Nunca",
         p6="Nunca",
     )
+
 
 def test_predecir_and_dataclasses():
     test_data = EntradaModelo(
@@ -95,5 +94,4 @@ def test_predecir_and_dataclasses():
         p6="Nunca",
     )
     modelo = ModeloAPI(*test_data)
-    SalidaModelo(score=modelo.predecir()[0]['score'])
-
+    SalidaModelo(score=modelo.predecir()[0]["score"])
