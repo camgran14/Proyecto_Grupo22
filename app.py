@@ -498,7 +498,7 @@ Mira el siguiente video tutorial:
 """
 )
 
-st.markdown(
+tab_c.markdown(
     """
 <div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/c64ca89131ec4bfeac0116460a44a501?sid=0c4463f0-e30a-4067-a684-65f625fea2a3" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 """,
