@@ -1,0 +1,10 @@
+# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
+v: 0
+micros:
+  - name: Proyecto-Grupo22-API
+    src: ./
+    engine: python3.9
+    primary: true
+    run: uvicorn api:app --reload
+    public_routes:
+      - "/*"
