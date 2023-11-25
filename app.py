@@ -57,7 +57,12 @@ def create_question(column, question_text):
         options=["Nunca", "A veces", "Constantemente", "Siempre"],
     )
 
+col_a.markdow('''
+## Predicción Nivel de desempeño:
 
+Para cada una de las preguntas, elija la respuesta que considere adecuada.
+Luego, oprima el botón "Predecir" para obtener el resultado.
+''')
 p7 = create_question(
     col_a,
     "Saca conclusiones que no están basadas en la interpretación ni el análisis de información.",
@@ -299,11 +304,22 @@ def filter_dataframe(df: pd.DataFrame, tab=tab_b) -> pd.DataFrame:
 
 df = filter_dataframe(data)
 ########################## MOSTRAR DATOS ##########################
+tab_b.markdown('''
+# Datos
+A continuación, se tienen los datos para su exploración.
 
+
+Puede aplicar filtros seleccionando el selectbox de "Añadir Filtros".
+Esto le permitirá elegir columnas de los datos y luego, 
+los valores admitidos de estas columnas. 
+Por defecto, no se filtra. Al elegir una columna para filtrar, por defecto
+se eligen todos sus valores
+''')
 tab_b.write(df)
 
 
 ########################## HISTOGRAMA COLUMNA IZQUIERDA TAB B ##########################
+
 
 hist_col = tab_b.selectbox(
     label="Elegir columna Histograma",
@@ -333,6 +349,13 @@ def make_data_hist(column, data=df):
 
 
 tab_b.markdown(f"## Histograma de frecuencia variable **{hist_col}**")
+tab_b.markdown('''
+Con el siguiente selector, eliga el histograma a visualizar.
+Los datos del histograma responden al filtro aplicado anteriormente.
+No se incluyen variables de preguntas.
+
+''')
+
 tab_b.bar_chart(data=make_data_hist(hist_col), x=hist_col, y="Conteo", color="#19b1c7")
 
 
@@ -366,6 +389,14 @@ preguntas_dict = {index + 1: value for index, value in enumerate(preguntas)}
 
 
 preguntas_options = [f"p{i}: {preguntas_dict[i]}" for i in range(1, 21)]
+
+tab_b.markdown('''
+## Histogramas de frecuencia preguntas 
+
+Con el siguiente selector, elija de qué preguntas ver el histograma.
+Por defecto, se eligen las 10 que quedaron para el modelo de Machine Learning.
+
+''')
 
 preguntas_user = tab_b.multiselect(
     "Elige la(s) pregunta(s) de interés:",
