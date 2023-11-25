@@ -1,6 +1,8 @@
-from fastapi import FastAPI
-from classes import ModeloAPI, EntradaModelo, SalidaModelo
 from typing import List
+
+from fastapi import FastAPI
+
+from classes import ModeloAPI, EntradaModelo, SalidaModelo
 
 # Inicializar una aplicación FastAPI
 
@@ -29,13 +31,13 @@ async def predecir_score(entradas: List[EntradaModelo]):
     """
 
     # Inicializar una lista para almacenar las respuestas del modelo
+
     respuesta = list()
 
     # Iterar sobre cada entrada en la lista de entradas
     for entrada in entradas:
         # Crear una instancia del modelo con las entradas actuales
         modelo = ModeloAPI(*entrada)
-
         # Realizar la predicción usando el modelo y agregarla a la lista de respuestas
         respuesta.append(modelo.predecir()[0])
 
