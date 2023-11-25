@@ -36,24 +36,18 @@ tab_a, tab_b, tab_c = st.tabs(["Predicción Modelo ML", "Exploración de Datos",
 
 
 ########################## COLS TAB A ##########################
-tab_a.markdown(
-    """
-## Predicción Nivel de desempeño:
+tab_a.markdown("""## Predicción Nivel de desempeño:
 
 Para cada una de las preguntas, elija la respuesta que considere adecuada.
 Luego, oprima el botón "Predecir" para obtener el resultado.
-"""
-)
+""")
 
 col_a, col_b = tab_a.columns(2)
 
 ######################################################################
 
 ########################## TAB A: CONTENIDO ##########################
-
 ######################################################################
-
-
 ########################## CREAR PREGUNTAS ##########################
 
 
@@ -312,8 +306,8 @@ A continuación, se tienen los datos para su exploración.
 
 
 Puede aplicar filtros seleccionando el selectbox de "Añadir Filtros".
-Esto le permitirá elegir columnas de los datos y luego, 
-los valores admitidos de estas columnas. 
+Esto le permitirá elegir columnas de los datos y luego,
+los valores admitidos de estas columnas.
 Por defecto, no se filtra. Al elegir una columna para filtrar, por defecto
 se eligen todos sus valores
 """
@@ -397,7 +391,7 @@ preguntas_options = [f"p{i}: {preguntas_dict[i]}" for i in range(1, 21)]
 
 tab_b.markdown(
     """
-## Histogramas de frecuencia preguntas 
+## Histogramas de frecuencia preguntas
 
 Con el siguiente selector, elija de qué preguntas ver el histograma.
 Por defecto, se eligen las 10 que quedaron para el modelo de Machine Learning.
