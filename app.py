@@ -66,14 +66,7 @@ def create_question(column, question_text):
     )
 
 
-col_a.markdown(
-    """
-## Predicción Nivel de desempeño:
 
-Para cada una de las preguntas, elija la respuesta que considere adecuada.
-Luego, oprima el botón "Predecir" para obtener el resultado.
-"""
-)
 p7 = create_question(
     col_a,
     "Saca conclusiones que no están basadas en la interpretación ni el análisis de información.",
