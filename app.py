@@ -106,7 +106,6 @@ p6 = create_question(
     "Utiliza varios tipos de razonamiento  (inductivo, deductivo, lógico, hipotético, transductivo, lingüístico,  etc.) de manera apropiada a cada situación",
 )
 
-
 ########################## DIVIDER ##########################
 
 tab_a.divider()
