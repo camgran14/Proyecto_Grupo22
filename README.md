@@ -8,7 +8,6 @@ Proyecto Grupo 22 - DSA - MIAD
 ![](https://img.shields.io/badge/python-3.9-blue.svg)
 ![](https://img.shields.io/badge/status-prod-green.svg)
 ![](https://img.shields.io/badge/version-1.0.1-blue.svg)
-[![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 
 
 # Deployment
