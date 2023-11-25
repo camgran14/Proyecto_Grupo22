@@ -4,7 +4,7 @@ FROM python:3.9
 RUN adduser --disabled-password --gecos '' api-user
 
 
-COPY . /app
+COPY /apiteam22ds4a /app
 
 # Definir directorio de trabajo 
 WORKDIR /app
