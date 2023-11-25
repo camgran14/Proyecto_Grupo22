@@ -1,7 +1,3 @@
-import pytest
-
-import sys
-import mock
 from apiteam22dsa.classes import EntradaModelo, SalidaModelo, ModeloAPI
 
 
@@ -29,7 +25,6 @@ import pandas as pd
 def test_read_data():
     data = pd.read_excel("./data/Base perfilación de competencias_310823.xlsx")
     assert data is not None
-
 
 
 def test_instanciar():

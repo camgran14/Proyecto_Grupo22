@@ -17,11 +17,12 @@ ModeloAPI: Se utiliza para interactuar con el modelo, cargarlo, preprocesar dato
 """
 
 
-from pydantic import BaseModel as BM
-from pydantic import Field
 from typing import Literal
+
 import joblib
 import pandas as pd
+from pydantic import BaseModel as BM
+from pydantic import Field
 
 
 class EntradaModelo(BM):
@@ -79,8 +80,6 @@ class EntradaModelo(BM):
             ]
         }
     }
-
-
 
 
 class SalidaModelo(BM):
