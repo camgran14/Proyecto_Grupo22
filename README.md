@@ -14,18 +14,71 @@ Proyecto Grupo 22 - DSA - MIAD
 # Deployment
 
 ## API:
-1. Crear una instancia de una máquina virtual.
+1. Crear una instancia de una máquina virtual. Ubuntu Server con al menos 10GB de disco.
+1. Conectarse al terminal de la Instancia.
 1. Clonar el repositorio.
 ```
- git clone https://github.com/JECaballeroR/Proyecto_Grupo22.git
+git clone https://github.com/JECaballeroR/Proyecto_Grupo22.git
+```
+4.  Ir a la carpeta en que se clonó
+```
+cd ruta/a/la/carpeta
+```
+5. En la máquina virtual, elimine versiones anteriores de Docker (esto genera un error si no hay
+ versiones anteriores, en cuyo caso puede continuar sin problema)
+```
+sudo apt-get remove docker docker-engine docker.io containerd runc
+```
+6. Actualice el índice de paquetes
+```
+sudo apt-get update
+```
+7. Instalar dependdencias de interés:
+```
+sudo apt-get install ca-certificates curl gnupg
+```
+8. Agregar llave de docker:
+```
+sudo install -m 0755 -d /etc/apt/keyrings
+ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+ sudo chmod a+r /etc/apt/keyrings/docker.gpg
+```
+9. Añadir repositorio de Docker al sistema para instalación:
+
 ```
 
-1. Ir a la carpeta en que se clonó
-```
-$ cd ruta/a/la/carpeta
+ echo  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" |  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
 ```
 
-
+10. Actualice el índice de paquetes nuevamente
+```
+sudo apt-get update
+```
+11. Instale Docker Engine, containerd, y Docker Compose
+```
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+12. Ir a la carpeta con el Dockerfile, en este caso
+```
+cd Proyecto_Grupo22
+```
+13. Construya la imágen a partir del dockerfile del repo:
+```
+sudo docker build -t api-grupo22:latest .
+```
+14. Ejecute el contenedor usando la imagen creada:
+```
+sudo docker run -p 8001:8001 -it -e PORT=8001 api-grupo22
+```
+15. Para su Máquina Virtual, modifique el grupo de seguridad
+    para permitir tráfico por el puerto 8001. Es decir, en el grupo de seguridad de la máquina edite las
+ reglas de entrada y agregue una que permita tráfico por el puerto TCP 8001 desde cualquier IP
+ (anywhere IPv4).
+    
+16. Copie la IP pública de su máquina y en un navegador local visite la página IP:8001. Allí debe
+ aparecer la API en ejecución
+    
 ## Dashboard:
 1. Clonar el repositorio
 1. Crear una cuenta en https://share.streamlit.io/
@@ -55,3 +108,4 @@ $ cd ruta/a/la/carpeta
 
 7. Para actualizar tu app, **Haz un push a la rama del proyecto que elegiste en tu deployment**.
 Streamlit monitorea y actualiza la app al hacer un push.
+   
