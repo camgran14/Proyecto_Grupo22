@@ -100,7 +100,7 @@ for max_depth in max_depths:
                 mlflow.log_param("max_depth", max_depth)
                 mlflow.log_param("min_samples_split", min_samples_split)
                 mlflow.log_param("min_samples_leaf", min_samples_leaf)
-                mlflow.log_metric("MSE", mse)
+                mlflow.log_metric("mse", mse)
 
                 mlflow.sklearn.log_model(model, "decision-tree-model")
                 mlflow.end_run()
@@ -114,9 +114,10 @@ with mlflow.start_run(experiment_id=experiment_lasso.experiment_id):
     alphasCalibrar = np.logspace(-10, 2, n_alphas)
     modeloLASSO = LassoCV(alphas=alphasCalibrar).fit(X_train, y_train)
     prediccionLASSO = modeloLASSO.predict(X_test)
-    MSE = np.average(np.square(prediccionLASSO - y_test))
+    mse = np.average(np.square(prediccionLASSO - y_test))
     mlflow.log_param("penalization", "LASSO")
-    mlflow.log_metric("MSE", MSE)
+    mlflow.log_param("alpha", modeloLASSO.alpha_)
+    mlflow.log_metric("mse", mse)
     mlflow.end_run()
 
 
@@ -129,9 +130,10 @@ with mlflow.start_run(experiment_id=experiment_ridge.experiment_id):
         X_train, y_train
     )
     prediccionRidge = modeloRidge.predict(X_test)
-    MSE = np.average(np.square(prediccionRidge - y_test))
+    mse = np.average(np.square(prediccionRidge - y_test))
     mlflow.log_param("penalization", "Ridge")
-    mlflow.log_metric("MSE", MSE)
+    mlflow.log_param("alpha", modeloRidge.alpha_)
+    mlflow.log_metric("mse", mse)
     mlflow.end_run()
 
 
@@ -148,5 +150,6 @@ with mlflow.start_run(experiment_id=experiment_elasticnet.experiment_id):
     prediccionElastic = modeloElastic.predict(X_test)
     MSE = np.average(np.square(prediccionElastic - y_test))
     mlflow.log_param("penalization", "ElasticNet")
-    mlflow.log_metric("MSE", MSE)
+    mlflow.log_param("alpha", modeloElastic.alpha_)
+    mlflow.log_metric("mse", mse)
     mlflow.end_run()
