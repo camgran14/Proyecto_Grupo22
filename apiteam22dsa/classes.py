@@ -17,11 +17,12 @@ ModeloAPI: Se utiliza para interactuar con el modelo, cargarlo, preprocesar dato
 """
 
 
-from pydantic import BaseModel as BM
-from pydantic import Field
 from typing import Literal
+
 import joblib
 import pandas as pd
+from pydantic import BaseModel as BM
+from pydantic import Field
 
 
 class EntradaModelo(BM):
@@ -89,7 +90,7 @@ class SalidaModelo(BM):
     score: float = Field(ge=-5, le=5, example=0.42)
 
     class Config:
-        schema_extra = {"example": {"score": 0.42}}
+        json_schema_extra = {"example": {"score": 0.42}}
 
 
 class ModeloAPI:
@@ -133,6 +134,8 @@ class ModeloAPI:
         for valor in valores:
             variables.append(getattr(self, valor)[1])
             print(getattr(self, valor))
+
+        print(variables)
         mapeo_respuestas = {"Nunca": 1, "A veces": 2, "Constantemente": 3, "Siempre": 4}
         p7, p12, p5, p15, p9, p2, p17, p18, p20, p6 = [
             mapeo_respuestas[x] for x in variables
@@ -151,4 +154,5 @@ class ModeloAPI:
         self._cargar_modelo()
         x = self._preprocesar_datos()
         y_pred = pd.DataFrame(self.modelo.predict(x)).rename(columns={0: "score"})
+        print(y_pred)
         return y_pred.to_dict(orient="records")
