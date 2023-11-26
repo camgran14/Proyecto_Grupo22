@@ -51,7 +51,7 @@ sudo apt-get remove docker docker-engine docker.io containerd runc
 ```
 sudo apt-get update
 ```
-7. Instalar dependdencias de interés:
+7. Instalar dependencias de interés:
 ```
 sudo apt-get install ca-certificates curl gnupg
 ```
@@ -81,7 +81,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 ```
 cd Proyecto_Grupo22
 ```
-13. Construya la imágen a partir del dockerfile del repo:
+13. Construya la imagen a partir del dockerfile del repo:
 ```
 sudo docker build -t api-grupo22:latest .
 ```
