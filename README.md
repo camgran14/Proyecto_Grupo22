@@ -9,9 +9,28 @@ Proyecto Grupo 22 - DSA - MIAD
 ![](https://img.shields.io/badge/status-prod-green.svg)
 ![](https://img.shields.io/badge/version-1.0.1-blue.svg)
 
+# Video general del proyecto
+[![Video del Proyecto](figs/video_1.gif)](https://www.loom.com/share/913ee3de3548443a828c639ae0f0d4b8)
 
-# Deployment
+# Alcance
 
+### Productos resultado del proyecto de Analytics que responde al problema de Negocio:
+1. Tablero de Control
+    * Pestaña de interacción con Modelo de ML desarrollado. La pestaña debe tomar las entradas definidas y devolver la predicción del modelo
+    * Pestaña de exploración. Debe permitir filtrar y explorar los datos de entrada. Idealmente, priorizar mostrar los datos asociados al modelo
+    * Disponible en la nube
+1. API Modelo
+    * Se debe separar el modelo del tablero. La API debe idealmente, poder recibir peticiones en masa así el Front End no las requiera inmediatamente.
+    * Debe poderse fácilmente cambiar el modelo, para procesos de re validación
+    *    Disponible en la nube.
+1. Documentación:
+* Instalación y re-despliegue
+* General, a funcionalidad del código
+* Importancia del valor generado.
+
+# Guía de Deployment
+
+A continuación, se presenta una guía para instalar el tablero y la API.
 ## API:
 1. Crear una instancia de una máquina virtual. Ubuntu Server con al menos 10GB de disco.
 1. Conectarse al terminal de la Instancia.
@@ -32,7 +51,7 @@ sudo apt-get remove docker docker-engine docker.io containerd runc
 ```
 sudo apt-get update
 ```
-7. Instalar dependdencias de interés:
+7. Instalar dependencias de interés:
 ```
 sudo apt-get install ca-certificates curl gnupg
 ```
@@ -62,7 +81,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 ```
 cd Proyecto_Grupo22
 ```
-13. Construya la imágen a partir del dockerfile del repo:
+13. Construya la imagen a partir del dockerfile del repo:
 ```
 sudo docker build -t api-grupo22:latest .
 ```
@@ -107,4 +126,10 @@ sudo docker run -p 8001:8001 -it -e PORT=8001 api-grupo22
 
 7. Para actualizar tu app, **Haz un push a la rama del proyecto que elegiste en tu deployment**.
 Streamlit monitorea y actualiza la app al hacer un push.
-   
+
+# Explicación del código    
+
+A continuación, se tiene un video de la estructura y el funcionamiento del código.
+Internamente, el código se encuentra comentado. El video sirve más de explicación de decisiones de arquitectura 
+y funcionalidad del mismo.
+[![Explicación del código](figs/video_2.gif)](https://www.loom.com/share/10be3f45d9c440c1832669c748f663a9)
