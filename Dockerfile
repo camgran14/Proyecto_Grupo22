@@ -4,10 +4,10 @@ FROM python:3.9
 RUN adduser --disabled-password --gecos '' api-user
 
 
-COPY /apiteam22ds4a /app
+COPY . /app
 
 # Definir directorio de trabajo 
-WORKDIR /app
+WORKDIR /app/apiteam22dsa
 
 # Instalar dependencias
 RUN pip install --upgrade pip

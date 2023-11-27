@@ -97,6 +97,22 @@ sudo docker run -p 8001:8001 -it -e PORT=8001 api-grupo22
 16. Copie la IP pública de su máquina y en un navegador local visite la página IP:8001. Allí debe
  aparecer la API en ejecución
     
+17. Para actualizar la API, ejecute:
+```
+docker system prune -f ; docker volume prune -f ;docker rm -f -v $(docker ps -q -a)
+```
+y luego, los pasos 12 al 16 de nuevo. Donde
+
+```
+$(docker ps -q -a)
+```
+
+es la salida de correr
+
+```
+docker ps -q -a
+```
+
 ## Dashboard:
 1. Clonar el repositorio
 1. Crear una cuenta en https://share.streamlit.io/
