@@ -124,7 +124,7 @@ class ModeloAPI:
     def _cargar_modelo(self):
         """Carga el modelo desde un archivo."""
 
-        self.modelo = joblib.load("ModeloAPI.pkl")
+        self.modelo = joblib.load("ModeloAPI_OLS.pkl")
 
     def _preprocesar_datos(self):
         """Realiza el preprocesamiento de datos antes de la predicción."""
