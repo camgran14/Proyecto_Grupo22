@@ -21,7 +21,7 @@ app = FastAPI(
 )
 async def predecir_score(entradas: List[EntradaModelo]):
     """
-    Endpoint de la API encargado de predecir la probabilidad de dejar la organización.
+    Endpoint de la API encargado de predecir el nivel de desempeño, "Alto", "Medio" o "Bajo", de los docentes en las competencias del Siglo XXI.
 
     Parameters:
         - entradas: Lista de objetos EntradaModelo que representan las entradas del modelo.
